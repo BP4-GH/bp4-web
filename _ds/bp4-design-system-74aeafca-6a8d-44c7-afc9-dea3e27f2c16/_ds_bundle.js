@@ -1394,8 +1394,10 @@ function App() {
     onClose: () => setModal(false)
   }));
 }
-ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(App, null));
-window.lucide && window.lucide.createIcons();
+if (window.__BP4_DESIGN_SYSTEM_ALLOW_DEMO) {
+  ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(App, null));
+  window.lucide && window.lucide.createIcons();
+}
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/Site.jsx", error: String((e && e.message) || e) }); }
 
 // ui_kits/website/strings.js
