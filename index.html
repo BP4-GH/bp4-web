@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es-419">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BP4 — Gestión integral de talento tecnológico</title>
+
+<!-- BP4 Design System tokens + styles -->
+<link rel="stylesheet" href="_ds/bp4-design-system-74aeafca-6a8d-44c7-afc9-dea3e27f2c16/styles.css" />
+
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--surface-page); color: var(--text-body); -webkit-font-smoothing: antialiased; }
+  ::selection { background: var(--bp-orange-200); color: var(--bp-musgo); }
+
+  /* ---- Animations ---- */
+  @keyframes bpFade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes bpPop { from { opacity: 0; transform: translateY(14px) scale(0.97); } to { opacity: 1; transform: none; } }
+  @keyframes bpMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ---- Interaction primitives ---- */
+  .bp-press { transition: transform var(--duration-fast) var(--ease-bounce), filter var(--duration-normal) var(--ease-standard), box-shadow var(--duration-normal) var(--ease-standard), background var(--duration-normal) var(--ease-standard), opacity var(--duration-normal) var(--ease-out); }
+  .bp-press:hover { filter: brightness(0.96); }
+  .bp-press:active { transform: scale(0.96); }
+  .bp-lift { transition: transform var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal) var(--ease-standard); }
+  .bp-lift:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg) !important; }
+  .bp-navlink:hover { color: var(--text-strong) !important; background: var(--bp-neutral-100); }
+
+  /* ---- Headings (fluid) ---- */
+  .bp-h2 { font-size: clamp(30px, 4.4vw, 46px); }
+  .bp-hero-title { font-size: clamp(34px, 4.4vw, 54px); }
+  .bp-hero-title-xl { font-size: clamp(46px, 9.4vw, 120px); }
+
+  /* ---- Form fields ---- */
+  .bp-field {
+    width: 100%; padding: 12px 15px; border: 2px solid var(--border-default); border-radius: var(--radius-md);
+    outline: none; font-family: var(--font-body); font-size: 15px; color: var(--text-strong); background: var(--surface-card);
+    transition: border-color var(--duration-normal) var(--ease-standard), box-shadow var(--duration-normal) var(--ease-standard);
+  }
+  .bp-field::placeholder { color: var(--bp-neutral-400); }
+  .bp-field:focus { border-color: var(--color-brand); box-shadow: 0 0 0 4px var(--bp-orange-100); }
+  .bp-channel:hover { background: rgba(255,255,255,0.1) !important; }
+
+  /* ============ Layout grids ============ */
+  .bp-hero-grid { display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 56px; align-items: center; }
+  .bp-hero-editorial { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 40px; align-items: end; }
+  .bp-hero-editorial-side { padding-bottom: 8px; }
+  .bp-hero-editorial-media { display: grid; grid-template-columns: 1.5fr 1fr; gap: 28px; align-items: center; }
+  .bp-hero-editorial-card { display: flex; flex-direction: column; gap: 8px; }
+
+  .bp-clients-head { display: flex; gap: 48px; align-items: flex-start; flex-wrap: wrap; }
+  .bp-clients-stat { width: 280px; padding-top: 8px; }
+  .bp-client-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(176px, 1fr)); gap: 16px; margin-top: 48px; }
+  .bp-client-cell {
+    display: flex; align-items: center; justify-content: center; height: 92px; padding: 16px 22px; background: var(--surface-card);
+    border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); box-shadow: var(--shadow-xs);
+    color: var(--bp-neutral-500);
+    transition: transform var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal) var(--ease-standard), color var(--duration-normal) var(--ease-standard);
+  }
+  .bp-client-cell:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); color: var(--bp-musgo); }
+
+  /* Inline client logo SVG — monochrome (currentColor), viewBox trimmed in JS.
+     Fills the cell width; height capped by --logo-cap so wide & tall marks balance. */
+  .bp-logo-svg { line-height: 0; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
+  .bp-logo-svg svg { width: 100%; height: 100%; max-height: var(--logo-cap, 46px); display: block; fill: currentColor; }
+
+  /* Desafío */
+  .bp-challenge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+
+  /* Modelo — 4 pilares */
+  .bp-pillars-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .bp-pillar-card { display: flex; flex-direction: column; background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-2xl); padding: 28px; box-shadow: var(--shadow-sm); }
+
+  /* Recruiting */
+  .bp-recruit-grid { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 56px; align-items: start; }
+
+  /* People Care — dimensiones */
+  .bp-dims-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  /* Reporting */
+  .bp-report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+
+  /* Reporte + dashboard: dos cartas superpuestas */
+  .bp-report-stack { position: relative; padding: 8px 7% 21% 0; }
+  .bp-rs-back, .bp-rs-front { margin: 0; position: relative; border-radius: var(--radius-xl); overflow: hidden;
+    background: var(--surface-card); border: 1px solid var(--border-subtle); }
+  .bp-rs-back { width: 84%; box-shadow: var(--shadow-lg); transform: rotate(-1.6deg); transform-origin: top left; }
+  .bp-rs-front { position: absolute; right: 0; bottom: 0; width: 60%; box-shadow: var(--shadow-xl);
+    transform: rotate(2.4deg); transform-origin: bottom right; }
+  .bp-rs-back img, .bp-rs-front img { display: block; width: 100%; height: auto; }
+  .bp-rs-tag { position: absolute; top: 12px; left: 12px; z-index: 2; display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-display); font-weight: 700; font-size: 12px; letter-spacing: -0.01em; color: #fff;
+    padding: 6px 11px; border-radius: var(--radius-pill); box-shadow: 0 4px 12px rgba(20,20,20,0.18); white-space: nowrap; }
+  .bp-rs-tag-teal { background: var(--bp-teal-700); }
+  .bp-rs-tag-orange { background: var(--color-brand); }
+  .bp-rs-front .bp-rs-tag { font-size: 11px; padding: 5px 9px; top: 10px; left: 10px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .bp-rs-back, .bp-rs-front { transition: transform 320ms var(--ease-out, ease); }
+    .bp-report-stack:hover .bp-rs-back { transform: rotate(-2.4deg); }
+    .bp-report-stack:hover .bp-rs-front { transform: rotate(3.4deg) translate(2px, 2px); }
+  }
+
+  /* IA + UTN */
+  .bp-ai-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: center; }
+
+  .bp-ctaband-grid { display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+  .bp-ctaband-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .bp-contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  .bp-contact-form-wrap { background: var(--surface-card); border-radius: var(--radius-2xl); padding: 34px; box-shadow: var(--shadow-xl); }
+
+  .bp-footer-grid { display: grid; grid-template-columns: 1.2fr 1.4fr 0.9fr; gap: 40px; align-items: start; }
+  .bp-footer-cols { display: flex; gap: 56px; flex-wrap: wrap; }
+  .bp-footer-somos { display: flex; flex-direction: column; align-items: flex-start; }
+
+  .bp-mobile-menu { display: none; }
+
+  /* ============ Responsive ============ */
+  @media (max-width: 1024px) {
+    .bp-hero-editorial { grid-template-columns: 1fr; gap: 24px; align-items: start; }
+    .bp-why-grid { gap: 36px; }
+  }
+  @media (max-width: 900px) {
+    .bp-desktop-nav, .bp-desktop-actions { display: none !important; }
+    .bp-mobile-trigger { display: flex !important; }
+    .bp-mobile-menu { display: block; }
+    .bp-hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .bp-hero-visual { min-height: 380px !important; order: 2; }
+    .bp-challenge-grid, .bp-dims-grid, .bp-recruit-grid, .bp-report-grid, .bp-ai-grid { grid-template-columns: 1fr; gap: 32px; }
+    .bp-pillars-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
+    .bp-contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .bp-footer-grid { grid-template-columns: 1fr; gap: 36px; }
+    .bp-hero-editorial-media { grid-template-columns: 1fr; }
+    .bp-clients-stat { width: 100%; }
+    .bp-focal-card { grid-template-columns: 1fr !important; text-align: left; gap: 18px !important; }
+  }
+  @media (max-width: 560px) {
+    .bp-container { padding: 0 20px !important; }
+    .bp-pillars-grid { grid-template-columns: 1fr; }
+    .bp-contact-form-wrap { padding: 24px; }
+    .bp-footer-cols { gap: 36px; }
+    section { padding-top: 64px !important; padding-bottom: 64px !important; }
+    .bp-sticky-cta { right: 16px !important; bottom: 16px !important; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .bp-marquee-track { animation: none !important; }
+    * { transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+
+  <!-- BP4 design-system component bundle -->
+  <script src="_ds/bp4-design-system-74aeafca-6a8d-44c7-afc9-dea3e27f2c16/_ds_bundle.js"></script>
+
+  <!-- Copy + data -->
+  <script src="logos.js"></script>
+  <script src="client-logos.js"></script>
+  <script src="strings.js"></script>
+
+  <!-- App -->
+  <script type="text/babel" src="ui.jsx"></script>
+  <script type="text/babel" src="header.jsx"></script>
+  <script type="text/babel" src="hero.jsx"></script>
+  <script type="text/babel" src="sections-a.jsx"></script>
+  <script type="text/babel" src="sections-b.jsx"></script>
+  <script type="text/babel" src="sections-c.jsx"></script>
+  <script type="text/babel" src="footer-contact.jsx"></script>
+  <script type="text/babel" src="app.jsx"></script>
+</body>
+</html>
