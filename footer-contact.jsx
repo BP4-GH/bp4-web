@@ -41,7 +41,14 @@ function ContactForm({ t, compact = false }) {
     t.contact.fields.forEach((f) => { if (!String(vals[f.key] || "").trim()) e[f.key] = true; });
     if (vals.email && !/^\S+@\S+\.\S+$/.test(vals.email)) e.email = true;
     setErrs(e);
-    if (Object.keys(e).length === 0) setSent(true);
+    if (Object.keys(e).length === 0) {
+      const subject = encodeURIComponent("Consulta desde la web BP4");
+      const body = encodeURIComponent(
+        `Nombre: ${vals.name || ""}\nEmail: ${vals.email || ""}\nEmpresa: ${vals.company || ""}\nNecesito: ${vals.need || ""}`
+      );
+      window.location.href = `mailto:hello@bp-4.com?subject=${subject}&body=${body}`;
+      setSent(true);
+    }
   };
   React.useEffect(() => { if (window.lucide) window.lucide.createIcons(); }, [sent]);
   if (sent) {
