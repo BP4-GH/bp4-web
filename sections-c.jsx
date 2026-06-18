@@ -70,7 +70,7 @@ function Reporting({ t }) {
 function AI({ t }) {
   const a = t.ai;
   return (
-    <section id="ia" data-screen-label="IA" style={{ padding: "100px 0", background: "var(--surface-page)", position: "relative", overflow: "hidden" }}>
+    <section style={{ padding: "100px 0", background: "var(--surface-page)", position: "relative", overflow: "hidden" }}>
       <CContainer style={{ position: "relative" }}>
         <div className="bp-ai-grid">
           <div className="bp-ai-copy">

@@ -109,7 +109,6 @@ function Contact({ t }) {
             <p style={{ fontFamily: "var(--font-body)", fontSize: 18, color: "rgba(255,255,255,0.8)", marginTop: 16, lineHeight: 1.6, maxWidth: 420 }}>{t.contact.body}</p>
             <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 13, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", margin: "36px 0 14px" }}>{t.contact.directTitle}</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 380 }}>
-              {C.phone && <ContactChannel icon="phone" label={t.lang === "en" ? "Phone" : "Teléfono"} value={C.phone} href={`tel:${C.phone.replace(/\s+/g, "")}`} />}
               <ContactChannel icon="message-circle" label="WhatsApp" value="+54 9 11 6481-2711" href={WA} />
               <ContactChannel icon="mail" label="Email" value={C.email} href={`mailto:${C.email}`} />
               <ContactChannel icon="linkedin" label="LinkedIn" value="linkedin.com/company/bp4" href={C.linkedin} />

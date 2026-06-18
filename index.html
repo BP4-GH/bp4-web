@@ -18,6 +18,11 @@
   @keyframes bpFade { from { opacity: 0; } to { opacity: 1; } }
   @keyframes bpPop { from { opacity: 0; transform: translateY(14px) scale(0.97); } to { opacity: 1; transform: none; } }
   @keyframes bpMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes bp4mMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes bp4mSheet { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+  .bp4m-logo svg { height: 30px; width: auto; display: block; }
+  .bp4m-scroll-x { scrollbar-width: none; -ms-overflow-style: none; }
+  .bp4m-scroll-x::-webkit-scrollbar { display: none; }
 
   /* ---- Interaction primitives ---- */
   .bp-press { transition: transform var(--duration-fast) var(--ease-bounce), filter var(--duration-normal) var(--ease-standard), box-shadow var(--duration-normal) var(--ease-standard), background var(--duration-normal) var(--ease-standard), opacity var(--duration-normal) var(--ease-out); }
@@ -146,7 +151,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .bp-marquee-track { animation: none !important; }
+    .bp-marquee-track, .bp4m-mtrack { animation: none !important; }
     * { transition-duration: 0.01ms !important; }
   }
 </style>
@@ -166,11 +171,11 @@
   <script src="logos.js"></script>
   <script src="client-logos.js"></script>
   <script src="strings.js"></script>
-
-  <script type="text/babel" src="mobile.jsx"></script>
+  <script src="bp4-data.js"></script>
 
   <!-- App -->
   <script type="text/babel" src="ui.jsx"></script>
+  <script type="text/babel" src="mobile.jsx"></script>
   <script type="text/babel" src="header.jsx"></script>
   <script type="text/babel" src="hero.jsx"></script>
   <script type="text/babel" src="sections-a.jsx"></script>

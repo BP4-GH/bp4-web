@@ -8,23 +8,24 @@ const { Clients, Challenge, Model } = window.BPSecA;
 const { Recruiting, PeopleCare } = window.BPSecB;
 const { Reporting, AI, Differentiators, Vision } = window.BPSecC;
 const { CTABand, Contact, Footer, StickyCTA, ContactModal } = window.BPFoot;
+const { MobileApp } = window.BPMobile;
 
 function App() {
   const [lang, setLang] = React.useState(() => localStorage.getItem("bp4-lang") || "es");
   const [modal, setModal] = React.useState(false);
-  const [isMobile, setIsMobile] = React.useState(() => typeof window !== 'undefined' && window.matchMedia ? window.matchMedia('(max-width: 768px)').matches : false);
+  const [isMobile, setIsMobile] = React.useState(() => window.matchMedia("(max-width: 900px)").matches);
+
+  React.useEffect(() => {
+    const mq = window.matchMedia("(max-width: 900px)");
+    const onChange = () => setIsMobile(mq.matches);
+    mq.addEventListener ? mq.addEventListener("change", onChange) : mq.addListener(onChange);
+    return () => { mq.removeEventListener ? mq.removeEventListener("change", onChange) : mq.removeListener(onChange); };
+  }, []);
   const t = { ...window.BP[lang], lang };
   const clients = window.BP_CLIENT_LOGOS;
 
   React.useEffect(() => { localStorage.setItem("bp4-lang", lang); }, [lang]);
   React.useEffect(() => { document.documentElement.lang = t.code; }, [t.code]);
-  React.useEffect(() => {
-    if (!window.matchMedia) return undefined;
-    const mq = window.matchMedia('(max-width: 768px)');
-    const handler = (e) => setIsMobile(e.matches);
-    if (mq.addEventListener) mq.addEventListener('change', handler); else mq.addListener(handler);
-    return () => { if (mq.removeEventListener) mq.removeEventListener('change', handler); else mq.removeListener(handler); };
-  }, []);
   React.useEffect(() => {
     if (window.lucide) window.lucide.createIcons();
   });
@@ -40,15 +41,7 @@ function App() {
 
   const onStart = () => setModal(true);
 
-  if (isMobile && window.BPMobile && window.BPMobile.MobileApp) {
-    return (
-      <div style={{ background: "var(--surface-page)" }}>
-        <a id="top" />
-        <window.BPMobile.MobileApp t={t} lang={lang} setLang={setLang} goTo={goTo} onStart={onStart} />
-        <ContactModal t={t} open={modal} onClose={() => setModal(false)} />
-      </div>
-    );
-  }
+  if (isMobile) return <MobileApp lang={lang} setLang={setLang} />;
 
   return (
     <div style={{ background: "var(--surface-page)" }}>

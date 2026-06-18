@@ -11,23 +11,22 @@ window.BP = {
       { id: "modelo", label: "El modelo" },
       { id: "people-care", label: "People Care" },
       { id: "reporting", label: "Reporting" },
-      { id: "recruiting", label: "Recruiting" },
-      { id: "ia", label: "IA" },
       { id: "clientes", label: "Clientes" },
-      { id: "contacto", label: "Contacto" },
     ],
     candidate: "¿Buscás trabajo?",
     cta: "Hablemos",
     ctaShort: "Hablemos",
 
     hero: {
-      eyebrow: "Gestión integral de talento · +13 años",
+      eyebrow: "Gestión integral de talento tecnológico · +13 años",
+      // V1 — claim institucional
       v1: {
         kicker: "El mejor staffing nace del match correcto.",
         title1: "Alineamos talento, cultura y objetivos para construir equipos que",
         titleEm: "permanecen.",
         body: "Combinamos recruiting especializado, gestión continua de personas, métricas y capacitación en un solo modelo. Así sostenemos equipos de alto desempeño a lo largo del tiempo.",
       },
+      // V3 — momento de marca oscuro
       v3: {
         kicker: "El mejor staffing nace del match correcto.",
         title1: "Alineamos talento, cultura y objetivos para construir equipos que",
@@ -37,6 +36,7 @@ window.BP = {
       primary: "Hablemos de tu equipo",
       secondary: "Conocé el modelo",
       trustLine: "Gestionamos equipos en:",
+      // Mini-panel "salud de la operación" (reemplaza la card de candidato suelto)
       snapshot: {
         title: "Salud de la cuenta",
         account: "Cuenta · Banca",
@@ -63,7 +63,6 @@ window.BP = {
       title: "Gestionamos equipos para empresas líderes",
       body: "Banca, telco, consumo masivo, salud, automotriz y tecnología. Organizaciones que confían a BP4 la gestión de sus equipos tecnológicos.",
       stat: "+100 colaboradores gestionados en proyectos críticos de negocio.",
-      trustLabel: "Empresas que confían en nosotros",
     },
 
     challenge: {
@@ -227,17 +226,14 @@ window.BP = {
       { id: "modelo", label: "The model" },
       { id: "people-care", label: "People Care" },
       { id: "reporting", label: "Reporting" },
-      { id: "recruiting", label: "Recruiting" },
-      { id: "ia", label: "AI" },
       { id: "clientes", label: "Clients" },
-      { id: "contacto", label: "Contact" },
     ],
     candidate: "Looking for a job?",
     cta: "Let's talk",
     ctaShort: "Let's talk",
 
     hero: {
-      eyebrow: "End-to-end talent management · 13+ years",
+      eyebrow: "End-to-end tech talent management · 13+ years",
       v1: {
         kicker: "Great staffing starts with the right match.",
         title1: "We align talent, culture and goals to build teams that",
@@ -279,7 +275,6 @@ window.BP = {
       title: "We manage teams for leading companies",
       body: "Banking, telco, consumer goods, healthcare, automotive and tech. Organizations that trust BP4 to manage their technology teams.",
       stat: "100+ people managed on business-critical projects.",
-      trustLabel: "Companies that trust us",
     },
 
     challenge: {
@@ -443,7 +438,6 @@ window.BP_CONTACT = {
   whatsapp: "https://wa.me/5491164812711",
   whatsappText: "?text=Hola,%20quisiera%20saber%20m%C3%A1s%20sobre%20ustedes",
   email: "hello@bp-4.com",
-  phone: "+54 9 11 6481-2711",
   linkedin: "https://www.linkedin.com/company/bp4/",
   maps: "https://maps.app.goo.gl/Tkwnt6vTdSgQCxPr6",
 };
