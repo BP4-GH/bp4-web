@@ -12,11 +12,19 @@ const { CTABand, Contact, Footer, StickyCTA, ContactModal } = window.BPFoot;
 function App() {
   const [lang, setLang] = React.useState(() => localStorage.getItem("bp4-lang") || "es");
   const [modal, setModal] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(() => typeof window !== 'undefined' && window.matchMedia ? window.matchMedia('(max-width: 768px)').matches : false);
   const t = { ...window.BP[lang], lang };
   const clients = window.BP_CLIENT_LOGOS;
 
   React.useEffect(() => { localStorage.setItem("bp4-lang", lang); }, [lang]);
   React.useEffect(() => { document.documentElement.lang = t.code; }, [t.code]);
+  React.useEffect(() => {
+    if (!window.matchMedia) return undefined;
+    const mq = window.matchMedia('(max-width: 768px)');
+    const handler = (e) => setIsMobile(e.matches);
+    if (mq.addEventListener) mq.addEventListener('change', handler); else mq.addListener(handler);
+    return () => { if (mq.removeEventListener) mq.removeEventListener('change', handler); else mq.removeListener(handler); };
+  }, []);
   React.useEffect(() => {
     if (window.lucide) window.lucide.createIcons();
   });
@@ -31,6 +39,16 @@ function App() {
   }, []);
 
   const onStart = () => setModal(true);
+
+  if (isMobile && window.BPMobile && window.BPMobile.MobileApp) {
+    return (
+      <div style={{ background: "var(--surface-page)" }}>
+        <a id="top" />
+        <window.BPMobile.MobileApp t={t} lang={lang} setLang={setLang} goTo={goTo} onStart={onStart} />
+        <ContactModal t={t} open={modal} onClose={() => setModal(false)} />
+      </div>
+    );
+  }
 
   return (
     <div style={{ background: "var(--surface-page)" }}>
