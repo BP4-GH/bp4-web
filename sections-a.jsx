@@ -23,6 +23,14 @@ function Clients({ t, clients }) {
             </div>
           ))}
         </div>
+        {t.clients.trustLabel && clients.length > 0 && (
+          <div style={{ marginTop: 34 }}>
+            <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 14 }}>
+              {t.clients.trustLabel}
+            </div>
+            <window.BPUI.Marquee items={clients} light />
+          </div>
+        )}
       </AContainer>
     </section>
   );
