@@ -11,11 +11,17 @@ function ReportStack({ r }) {
     <div className="bp-report-stack">
       <figure className="bp-rs-back">
         <span className="bp-rs-tag bp-rs-tag-teal"><CIcon name="file-text" size={14} /> {s.reportLabel}</span>
-        <img src="assets/report-real.png" alt={s.reportLabel} loading="lazy" />
+        <picture>
+          <source srcSet="assets/report-real.webp" type="image/webp" />
+          <img src="assets/report-real.png" alt={s.reportLabel} loading="lazy" />
+        </picture>
       </figure>
       <figure className="bp-rs-front">
         <span className="bp-rs-tag bp-rs-tag-orange"><CIcon name="layout-dashboard" size={14} /> {s.dashLabel}</span>
-        <img src="assets/dashboard-real.png" alt={s.dashLabel} loading="lazy" />
+        <picture>
+          <source srcSet="assets/dashboard-real.webp" type="image/webp" />
+          <img src="assets/dashboard-real.png" alt={s.dashLabel} loading="lazy" />
+        </picture>
       </figure>
     </div>
   );

@@ -7,8 +7,14 @@ const { Icon: HrIcon, Container: HrContainer, Eyebrow: HrEyebrow, Pebble: HrPebb
 
 /* Foto hexagonal del equipo (PNG con transparencia) — motivo geométrico de marca. */
 const HERO_PHOTO = "assets/photos/hero-team.png";
+const HERO_PHOTO_WEBP = "assets/photos/hero-team.webp";
 function HeroHexPhoto({ style = {} }) {
-  return <img src={HERO_PHOTO} alt="Equipo BP4" style={{ display: "block", width: "100%", height: "auto", ...style }} />;
+  return (
+    <picture>
+      <source srcSet={HERO_PHOTO_WEBP} type="image/webp" />
+      <img src={HERO_PHOTO} alt="Equipo BP4" style={{ display: "block", width: "100%", height: "auto", ...style }} />
+    </picture>
+  );
 }
 
 /* Account-health snapshot — the new hero visual. Speaks "gestión integral + datos". */

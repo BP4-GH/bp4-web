@@ -305,11 +305,17 @@ function MobileApp({ lang, setLang }) {
         <div style={{ position: "relative", margin: "24px 0 0", paddingBottom: 30 }}>
           <figure style={{ margin: 0, borderRadius: "var(--radius-lg)", overflow: "hidden", boxShadow: "var(--shadow-md)", border: "1px solid var(--border-subtle)", position: "relative" }}>
             <span style={{ position: "absolute", top: 10, left: 10, zIndex: 2, display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 11, padding: "5px 11px", borderRadius: "var(--radius-pill)", background: "var(--bp-teal-500)", color: "#fff" }}><MIcon name="file-text" size={13} /> {(t.reporting || {}).reportLabel}</span>
-            <img src="assets/report-real.png" alt="Reporte ejecutivo" loading="lazy" style={{ display: "block", width: "100%" }} />
+            <picture>
+              <source srcSet="assets/report-real.webp" type="image/webp" />
+              <img src="assets/report-real.png" alt="Reporte ejecutivo" loading="lazy" style={{ display: "block", width: "100%" }} />
+            </picture>
           </figure>
           <figure style={{ margin: 0, position: "absolute", right: 0, bottom: 0, width: "62%", borderRadius: "var(--radius-md)", overflow: "hidden", boxShadow: "var(--shadow-lg)", border: "2px solid #fff" }}>
             <span style={{ position: "absolute", top: 8, left: 8, zIndex: 2, display: "inline-flex", alignItems: "center", gap: 5, fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 10, padding: "4px 9px", borderRadius: "var(--radius-pill)", background: "var(--color-brand)", color: "#fff" }}><MIcon name="layout-dashboard" size={11} /> {(t.reporting || {}).dashLabel}</span>
-            <img src="assets/dashboard-real.png" alt="Dashboard en vivo" loading="lazy" style={{ display: "block", width: "100%" }} />
+            <picture>
+              <source srcSet="assets/dashboard-real.webp" type="image/webp" />
+              <img src="assets/dashboard-real.png" alt="Dashboard en vivo" loading="lazy" style={{ display: "block", width: "100%" }} />
+            </picture>
           </figure>
         </div>
         <div style={{ marginTop: 14, padding: "18px 20px", background: "var(--surface-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-xl)" }}>
