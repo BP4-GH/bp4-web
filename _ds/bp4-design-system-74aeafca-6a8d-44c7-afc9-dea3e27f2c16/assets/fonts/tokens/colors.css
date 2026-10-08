@@ -1,0 +1,115 @@
+/* ===========================================================================
+   BP4 — Color tokens
+   Official "Paleta Cromática". General rule: prefer the direct hex (#FF8E09).
+     Primarios : Naranja  #FF8E09 (151 C) · Mandarina #FF6000 (Bright Orange C)
+     Secundarios: Verde agua #00A6A6 (320 C) · Celeste #9BC0D3 (644 C)
+     Resalte    : Rojo     #F54748 (Warm Red C) · Musgo  #0E3541 (547 C)
+   =========================================================================== */
+
+:root {
+  /* ---- Official named brand colors --------------------------------------- */
+  --bp-naranja:    #FF8E09;  /* Primario  · Pantone 151 C */
+  --bp-mandarina:  #FF6000;  /* Primario  · Bright Orange C */
+  --bp-verde-agua: #00A6A6;  /* Secundario· Pantone 320 C */
+  --bp-celeste:    #9BC0D3;  /* Secundario· Pantone 644 C */
+  --bp-rojo:       #F54748;  /* Resalte   · Warm Red C */
+  --bp-musgo:      #0E3541;  /* Resalte   · Pantone 547 C (brand dark) */
+
+  /* ---- Brand orange scale (built around Naranja #FF8E09) ----------------- */
+  --bp-orange-50:  #FFF4E6;
+  --bp-orange-100: #FFE6C7;
+  --bp-orange-200: #FFD299;
+  --bp-orange-300: #FFBC66;
+  --bp-orange-400: #FFA533;
+  --bp-orange-500: #FF8E09;  /* ◀ primary brand color */
+  --bp-orange-600: #E67A00;
+  --bp-orange-700: #B85F00;
+  --bp-orange-800: #8A4700;
+  --bp-orange-900: #5C2F00;
+
+  /* ---- Mandarina scale (secondary warm) --------------------------------- */
+  --bp-mandarina-soft: #FFE3D1;
+  --bp-mandarina-600:  #E65600;
+
+  /* ---- Verde agua scale (teal) ------------------------------------------ */
+  --bp-teal-50:   #E2F4F4;
+  --bp-teal-100:  #B9E6E6;
+  --bp-teal-300:  #5CC4C4;
+  --bp-teal-500:  #00A6A6;  /* ◀ Verde agua */
+  --bp-teal-700:  #007878;
+  --bp-teal-900:  #034A4A;
+
+  /* ---- Celeste scale (soft blue) ---------------------------------------- */
+  --bp-celeste-soft: #E6EFF4;
+  --bp-celeste-700:  #5E89A0;
+
+  /* ---- Musgo scale (brand dark slate) ----------------------------------- */
+  --bp-musgo-50:   #EAF0F2;
+  --bp-musgo-700:  #0A2933;
+  --bp-musgo-900:  #07202A;
+
+  /* ---- Cool neutral scale (paper → ink, tuned toward Musgo) -------------- */
+  --bp-white:      #FFFFFF;
+  --bp-neutral-50:  #F8FAFA;
+  --bp-neutral-100: #EEF2F3;
+  --bp-neutral-200: #DEE6E8;
+  --bp-neutral-300: #C5D1D5;
+  --bp-neutral-400: #94A4AA;
+  --bp-neutral-500: #647379;
+  --bp-neutral-600: #43525A;
+  --bp-neutral-700: #2A3940;
+  --bp-neutral-800: #18272E;
+  --bp-neutral-900: #0E3541;  /* ◀ Musgo — brand ink */
+
+  /* ---- Semantic status colors (Rojo is the official highlight red) ------- */
+  --bp-success: #1F9D57;
+  --bp-success-soft: #E4F5EB;
+  --bp-warning: #F0A91C;
+  --bp-warning-soft: #FDF1D9;
+  --bp-error:   #F54748;  /* = Rojo / Resalte */
+  --bp-error-soft: #FDE3E3;
+  --bp-info:    #2D7FF9;
+  --bp-info-soft: #E5EFFE;
+
+  /* =========================================================================
+     Semantic aliases — reach for these in product UI
+     ========================================================================= */
+
+  /* Brand */
+  --color-brand:          var(--bp-orange-500);
+  --color-brand-hover:    var(--bp-orange-600);
+  --color-brand-active:   var(--bp-orange-700);
+  --color-brand-subtle:   var(--bp-orange-50);
+  --color-brand-on:       var(--bp-white);     /* text/icon on orange fill */
+
+  /* Secondary & highlight accents */
+  --color-secondary:      var(--bp-teal-500);   /* Verde agua */
+  --color-secondary-soft: var(--bp-teal-50);
+  --color-celeste:        var(--bp-celeste);
+  --color-highlight:      var(--bp-rojo);        /* Resalte */
+  --color-highlight-soft: var(--bp-error-soft);
+
+  /* Surfaces */
+  --surface-page:         var(--bp-neutral-50);
+  --surface-card:         var(--bp-white);
+  --surface-sunken:       var(--bp-neutral-100);
+  --surface-inverse:      var(--bp-musgo);       /* brand dark = Musgo */
+  --surface-brand:        var(--bp-orange-500);
+
+  /* Text */
+  --text-strong:          var(--bp-neutral-900);
+  --text-body:            var(--bp-neutral-700);
+  --text-muted:           var(--bp-neutral-500);
+  --text-on-brand:        var(--bp-white);
+  --text-on-inverse:      var(--bp-neutral-50);
+  --text-brand:           var(--bp-orange-600);
+
+  /* Borders */
+  --border-subtle:        var(--bp-neutral-200);
+  --border-default:       var(--bp-neutral-300);
+  --border-strong:        var(--bp-neutral-400);
+  --border-brand:         var(--bp-orange-500);
+
+  /* Focus ring */
+  --focus-ring:           var(--bp-orange-400);
+}
