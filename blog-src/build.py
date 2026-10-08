@@ -187,20 +187,29 @@ def card(p, big=False):
 </a>"""
 
 
+def row(p):
+    img = (f'<div class="b-row-img"><img src="{esc(p["image"])}" alt="" loading="lazy" /></div>'
+           if p.get("image") else '<div class="b-row-img b-row-noimg"><span>bp4</span></div>')
+    return f"""<a class="b-row" href="/blog/{p['slug']}/">
+  {img}<div class="b-row-body">
+    <div class="b-meta"><span class="b-tag">{esc(p['category'])}</span><time datetime="{p['date'].isoformat()}">{fecha_es(p['date'])}</time></div>
+    <h2>{esc(p['title'])}</h2>
+    <p>{esc(p['description'])}</p>
+  </div>
+</a>"""
+
+
 def page_index(posts):
     desc = "Notas, novedades y miradas de BP4 sobre talento tecnológico, gestión de equipos e inteligencia artificial."
     if posts:
-        items = card(posts[0], big=True) + "\n" + "\n".join(card(p) for p in posts[1:])
-        grid = f'<div class="b-grid">{items}</div>'
+        grid = '<div class="b-rows">' + "\n".join(row(p) for p in posts) + "</div>"
     else:
         grid = '<p class="b-empty">Muy pronto vamos a publicar las primeras notas.</p>'
     return (head("Blog — BP4", desc, f"{SITE}/blog/", DEFAULT_IMAGE) + header() + f"""<main>
-<section class="b-hero">
-  <div class="b-wrap">
-    <span class="b-eyebrow">Blog BP4</span>
-    <h1>Notas y <em>novedades</em></h1>
-    <p>{esc(desc)}</p>
-  </div>
+<section class="b-wrap b-intro">
+  <span class="b-eyebrow">Blog BP4</span>
+  <h1>Notas y novedades</h1>
+  <p>{esc(desc)}</p>
 </section>
 <section class="b-wrap b-list">
 {grid}
@@ -300,10 +309,10 @@ def main():
     visible.sort(key=lambda p: p["date"], reverse=True)
     published = [p for p in visible if not p["draft"]]
 
-    # limpiar páginas de notas generadas antes (no toca blog.css ni blog/img)
-    for d in OUT.iterdir() if OUT.exists() else []:
-        if d.is_dir() and (d / "index.html").exists() and d.name != "img":
-            shutil.rmtree(d)
+    # Avisar si quedaron carpetas de notas que ya no existen (no se borran solas)
+    current = {p["slug"] for p in visible}
+    stale = [d.name for d in OUT.iterdir() if OUT.exists() and d.is_dir()
+             and (d / "index.html").exists() and d.name not in current] if OUT.exists() else []
     OUT.mkdir(exist_ok=True)
 
     (OUT / "index.html").write_text(page_index(visible), encoding="utf-8")
@@ -318,6 +327,8 @@ def main():
     print(f"OK — {len(published)} publicadas, {len(visible) - len(published)} borradores incluidos")
     for p in visible:
         print(f"  {'[BORRADOR] ' if p['draft'] else ''}/blog/{p['slug']}/")
+    for name in stale:
+        print(f"AVISO: blog/{name}/ ya no corresponde a ninguna nota publicada; borrala a mano.")
     if include_drafts:
         print("ATENCIÓN: generado con --drafts. Volvé a correr sin --drafts antes de subir.")
 
