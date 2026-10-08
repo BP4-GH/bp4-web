@@ -122,7 +122,9 @@ def head(title, description, url, image, og_type="website", extra=""):
 <meta name="twitter:description" content="{esc(description)}" />
 <meta name="twitter:image" content="{esc(abs_url(image))}" />
 <link rel="alternate" type="application/rss+xml" title="Blog BP4" href="{SITE}/blog/feed.xml" />
-<link rel="icon" href="/assets/logos/bp4-logo-orange.png" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="stylesheet" href="{DS}" />
 <link rel="stylesheet" href="/blog/blog.css" />
 {extra}</head>
