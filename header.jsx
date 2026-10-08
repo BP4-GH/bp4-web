@@ -34,6 +34,8 @@ function Header({ t, lang, setLang, onStart, goTo }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   const nav = (id) => { setOpen(false); goTo(id); };
+  // Items con href (ej. Blog) navegan a otra página en lugar de hacer scroll.
+  const go = (n) => (n.href ? (window.location.href = n.href) : nav(n.id));
 
   return (
     <header style={{
@@ -49,7 +51,7 @@ function Header({ t, lang, setLang, onStart, goTo }) {
         </a>
         <nav className="bp-desktop-nav" style={{ display: "flex", gap: 2, marginLeft: 6 }}>
           {t.nav.map((n) => (
-            <button key={n.id} onClick={() => nav(n.id)} className="bp-navlink" style={{
+            <button key={n.id} onClick={() => go(n)} className="bp-navlink" style={{
               border: "none", background: "transparent", cursor: "pointer", padding: "9px 14px",
               fontFamily: "var(--font-body)", fontSize: 15, fontWeight: 500, color: "var(--text-body)",
               borderRadius: "var(--radius-sm)", whiteSpace: "nowrap",
@@ -84,7 +86,7 @@ function Header({ t, lang, setLang, onStart, goTo }) {
         }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
             {t.nav.map((n) => (
-              <button key={n.id} onClick={() => nav(n.id)} style={{
+              <button key={n.id} onClick={() => go(n)} style={{
                 border: "none", background: "transparent", cursor: "pointer", textAlign: "left", padding: "13px 8px",
                 fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 700, color: "var(--text-strong)",
                 borderBottom: "1px solid var(--border-subtle)",

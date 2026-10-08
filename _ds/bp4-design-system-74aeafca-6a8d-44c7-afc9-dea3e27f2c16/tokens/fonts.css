@@ -1,12 +1,13 @@
 /* ===========================================================================
    BP4 — Webfonts
    Montserrat (primary, titles & highlights) + Inter (secondary, body)
-   Both shipped as variable fonts covering the full weight axis.
+   Both shipped as variable fonts (woff2, Latin subset) covering the full weight axis.
+   Source: github.com/google/fonts (OFL). The .ttf files are kept as full-charset originals.
    =========================================================================== */
 
 @font-face {
   font-family: "Montserrat";
-  src: url("../assets/fonts/Montserrat-Variable.ttf") format("truetype-variations");
+  src: url("../assets/fonts/Montserrat-Variable.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -14,7 +15,7 @@
 
 @font-face {
   font-family: "Montserrat";
-  src: url("../assets/fonts/Montserrat-Italic-Variable.ttf") format("truetype-variations");
+  src: url("../assets/fonts/Montserrat-Italic-Variable.woff2") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -22,7 +23,7 @@
 
 @font-face {
   font-family: "Inter";
-  src: url("../assets/fonts/Inter-Variable.ttf") format("truetype-variations");
+  src: url("../assets/fonts/Inter-Variable.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -30,7 +31,7 @@
 
 @font-face {
   font-family: "Inter";
-  src: url("../assets/fonts/Inter-Italic-Variable.ttf") format("truetype-variations");
+  src: url("../assets/fonts/Inter-Italic-Variable.woff2") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;

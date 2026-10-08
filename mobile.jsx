@@ -121,7 +121,7 @@ function MobileApp({ lang, setLang }) {
         </div>
         <div className="bp4m-scroll-x" style={{ display: "flex", gap: 8, overflowX: "auto", padding: "2px 18px 12px" }}>
           {nav.map((n) => (
-            <button key={n.id} onClick={() => scrollTo(n.id)} className={press} style={{ flex: "none", border: "1px solid rgba(255,255,255,0.16)", background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.88)", fontFamily: "var(--font-body)", fontWeight: 600, fontSize: 13, padding: "7px 14px", borderRadius: "var(--radius-pill)", cursor: "pointer", whiteSpace: "nowrap" }}>{n.label}</button>
+            <button key={n.id} onClick={() => (n.href ? (window.location.href = n.href) : scrollTo(n.id))} className={press} style={{ flex: "none", border: "1px solid rgba(255,255,255,0.16)", background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.88)", fontFamily: "var(--font-body)", fontWeight: 600, fontSize: 13, padding: "7px 14px", borderRadius: "var(--radius-pill)", cursor: "pointer", whiteSpace: "nowrap" }}>{n.label}</button>
           ))}
         </div>
       </header>
@@ -492,7 +492,7 @@ function MobileApp({ lang, setLang }) {
         <div onClick={() => setMenuOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 45, background: "rgba(14,53,65,0.55)", backdropFilter: "blur(5px)" }}>
           <div onClick={(e) => e.stopPropagation()} style={{ marginTop: "calc(64px + env(safe-area-inset-top))", background: "var(--surface-card)", borderRadius: "0 0 var(--radius-2xl) var(--radius-2xl)", padding: "14px 18px 24px", boxShadow: "var(--shadow-xl)", animation: "bp4mSheet 200ms ease" }}>
             {nav.map((n) => (
-              <button key={n.id} onClick={() => scrollTo(n.id)} style={{ display: "block", width: "100%", textAlign: "left", border: "none", background: "transparent", cursor: "pointer", padding: "13px 6px", fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 700, color: "var(--text-strong)", borderBottom: "1px solid var(--border-subtle)" }}>{n.label}</button>
+              <button key={n.id} onClick={() => (n.href ? (window.location.href = n.href) : scrollTo(n.id))} style={{ display: "block", width: "100%", textAlign: "left", border: "none", background: "transparent", cursor: "pointer", padding: "13px 6px", fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 700, color: "var(--text-strong)", borderBottom: "1px solid var(--border-subtle)" }}>{n.label}</button>
             ))}
             <button onClick={goContact} style={{ display: "block", width: "100%", textAlign: "left", border: "none", background: "transparent", cursor: "pointer", padding: "14px 6px 4px", fontFamily: "var(--font-body)", fontSize: 14, fontWeight: 600, color: "var(--text-muted)" }}>{t.candidate}</button>
           </div>

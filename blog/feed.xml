@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+  <title>Blog BP4</title>
+  <link>https://bp-4.com/blog/</link>
+  <description>Notas y novedades de BP4</description>
+  <language>es-419</language>
+  <item>
+    <title>BP4 en Agenda Pyme: del job hugging a la fidelización real del talento tech</title>
+    <link>https://bp-4.com/blog/bp4-en-agenda-pyme-job-hugging/</link>
+    <guid>https://bp-4.com/blog/bp4-en-agenda-pyme-job-hugging/</guid>
+    <pubDate>Thu, 08 Oct 2026 12:00:00 -0300</pubDate>
+    <description>Agenda Pyme entrevistó a Hernán Guevara, CEO de BP4, sobre el desafío de retener talento tecnológico cuando la gente se queda por incertidumbre y no por compromiso.</description>
+  </item>
+</channel>
+</rss>

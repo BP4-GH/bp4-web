@@ -39,6 +39,21 @@ function App() {
     }
   }, []);
 
+  // Al llegar con un ancla (ej. /#contacto desde el blog) hacer scroll cuando la sección ya existe.
+  React.useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    let tries = 0;
+    const timer = setInterval(() => {
+      const el = document.getElementById(id);
+      if (el || ++tries > 20) {
+        clearInterval(timer);
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72 });
+      }
+    }, 100);
+    return () => clearInterval(timer);
+  }, []);
+
   const onStart = () => setModal(true);
 
   if (isMobile) return <MobileApp lang={lang} setLang={setLang} />;

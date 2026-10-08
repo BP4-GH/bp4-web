@@ -22,6 +22,7 @@ window.BP4M_DATA = {
       { id: "recruiting", label: "Recruiting" },
       { id: "ia", label: "IA" },
       { id: "clientes", label: "Clientes" },
+      { id: "blog", label: "Blog", href: "/blog/" },
       { id: "contacto", label: "Contacto" },
     ],
     hero: {
@@ -179,6 +180,7 @@ window.BP4M_DATA = {
       { id: "recruiting", label: "Recruiting" },
       { id: "ia", label: "AI" },
       { id: "clientes", label: "Clients" },
+      { id: "blog", label: "Blog", href: "/blog/" },
       { id: "contacto", label: "Contact" },
     ],
     hero: {
