@@ -44,6 +44,9 @@ WHATSAPP = "https://wa.me/5491164812711?text=Hola,%20quisiera%20saber%20m%C3%A1s
 LINKEDIN = "https://www.linkedin.com/company/bp4/"
 EMAIL = "hello@bp-4.com"
 
+# Páginas fuera del blog que también van al sitemap (juegos, etc.)
+EXTRA_URLS = ["/juegos/que-no-se-vaya/"]
+
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
          "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
 
@@ -293,6 +296,7 @@ def feed(posts):
 def sitemap(posts):
     urls = [(f"{SITE}/", None, "1.0"), (f"{SITE}/blog/", posts[0]["date"] if posts else None, "0.8")]
     urls += [(f"{SITE}/blog/{p['slug']}/", p["date"], "0.6") for p in posts]
+    urls += [(f"{SITE}{u}", None, "0.6") for u in EXTRA_URLS]
     body = "".join(
         f"\n  <url>\n    <loc>{u}</loc>" + (f"\n    <lastmod>{d.isoformat()}</lastmod>" if d else "")
         + f"\n    <priority>{pr}</priority>\n  </url>" for u, d, pr in urls)
