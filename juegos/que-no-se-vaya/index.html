@@ -250,10 +250,30 @@ html.modo-desk .panel{min-height:290px;padding:20px 18px 22px}
 html.modo-desk #decTexto{font-size:20px}
 html.modo-desk .opcion{padding:13px 14px}
 
+
+/* Formulario de contacto al final */
+.contacto{margin-top:14px;padding:16px;border:1.5px solid var(--linea);border-radius:22px;background:rgba(255,255,255,.04)}
+.contacto-tit{font:700 17px/1.25 var(--f-display);margin:0}
+.contacto-sub{font:400 14px/1.4 var(--f-body);color:var(--tinta-suave);margin:4px 0 0}
+.contacto-fila{display:flex;gap:8px;margin-top:12px}
+.contacto-fila input{flex:1;min-width:0;font:500 16px var(--f-body);color:var(--tinta);background:rgba(7,30,38,.6);border:1.5px solid var(--linea);border-radius:14px;padding:12px 14px;outline:none}
+.contacto-fila input::placeholder{color:var(--tinta-suave)}
+.contacto-fila input:focus{border-color:var(--naranja)}
+.contacto-fila input.error{border-color:var(--mandarina)}
+.contacto-fila .btn{margin-top:0;flex:none;width:auto;padding-left:20px;padding-right:20px}
+.contacto-legal{font:400 12px/1.4 var(--f-body);color:var(--tinta-suave);margin:8px 0 0}
+.contacto-msg{font:600 14px/1.4 var(--f-body);margin:6px 0 0;min-height:0}
+.contacto-msg:empty{display:none}
+.contacto-msg.ok{color:var(--naranja)}
+.contacto-msg.mal{color:#FFB199}
+.contacto.enviado .contacto-fila,.contacto.enviado .contacto-legal,.contacto.enviado .contacto-sub{display:none}
+.trampa{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
 </style>
+<script src="/config.js"></script>
 </head>
 <body>
 <div class="escena">
@@ -336,6 +356,18 @@ html.modo-desk .opcion{padding:13px 14px}
 
     <p class="mensaje">Conseguir al perfil nunca fue lo difícil. <em class="hl">Lo difícil viene después.</em></p>
 
+    <form class="contacto" id="contacto" hidden novalidate>
+      <p class="contacto-tit">¿Hablamos de tu equipo?</p>
+      <p class="contacto-sub">Dejanos tu mail y te escribimos.</p>
+      <div class="contacto-fila">
+        <input type="email" id="cMail" name="email" placeholder="tu@empresa.com" autocomplete="email" inputmode="email" required aria-label="Tu mail">
+        <button type="submit" class="btn primario" id="cBtn">Enviar</button>
+      </div>
+      <input type="text" name="website" id="cWeb" tabindex="-1" autocomplete="off" class="trampa" aria-hidden="true">
+      <p class="contacto-legal">Usamos tu mail solo para escribirte sobre esto.</p>
+      <p class="contacto-msg" id="cMsg" role="status" aria-live="polite"></p>
+    </form>
+
     <div class="acciones">
       <a class="btn primario" href="https://www.linkedin.com/in/felipebrugo" target="_blank" rel="noopener">Charlemos en LinkedIn</a>
       <button class="btn secundario" id="otraVez">Jugar de nuevo</button>
@@ -356,6 +388,9 @@ html.modo-desk .opcion{padding:13px 14px}
 (function(){
   // Link público del juego. Si está vacío, el mensaje de WhatsApp va sin link.
   var LINK = "https://bp-4.com/juegos/que-no-se-vaya/";
+  // Planilla de BP4 (config.js). Si no está configurada, todo esto no hace nada.
+  var SHEET = window.BP4Sheet || {activo:false, evento:function(){}, enviar:function(){ return Promise.reject(); }};
+  var ultimoResultado = null;
 
   // El equipo: nombre, rol, tono de piel y peinado (0 largo, 1 corto, 2 rodete, 3 rulos, 4 raya al costado).
   var EQUIPO = [
@@ -614,6 +649,9 @@ html.modo-desk .opcion{padding:13px 14px}
     $("premio").hidden = quedan !== 5;
     $("premioWa").href = wa("Jugué «Que no se vaya» de BP4 y sostuve a todo el equipo: 5 de 5. ¿Vos llegás?");
     $("compartir").href = wa("Jugué «Que no se vaya» de BP4: " + quedan + " de 5 siguen en el equipo. ¿Cuántos sostenés vos?");
+    ultimoResultado = quedan;
+    SHEET.evento("terminar", {salvados: quedan});
+    $("contacto").hidden = !SHEET.activo;
     ver("final");
     $("final").scrollTop = 0;
   }
@@ -649,8 +687,34 @@ html.modo-desk .opcion{padding:13px 14px}
   window.addEventListener("resize", ajustar);
   ajustar();
 
-  $("empezar").addEventListener("click", empezar);
-  $("otraVez").addEventListener("click", empezar);
+  $("empezar").addEventListener("click", function(){ SHEET.evento("empezar"); empezar(); });
+  $("otraVez").addEventListener("click", function(){ SHEET.evento("jugar_de_nuevo"); SHEET.evento("empezar"); empezar(); });
+
+  // Medición anónima (planilla de BP4) y formulario de contacto
+  SHEET.evento("visita");
+  Array.prototype.forEach.call(document.querySelectorAll('a[href*="linkedin.com/in/"]'), function(a){
+    a.addEventListener("click", function(){ SHEET.evento("click_linkedin"); });
+  });
+  ["compartir", "premioWa"].forEach(function(id){
+    $(id).addEventListener("click", function(){ SHEET.evento("compartir"); });
+  });
+  $("contacto").addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var input = $("cMail"), msg = $("cMsg"), btn = $("cBtn"), mail = input.value.trim();
+    if (!/^\S+@\S+\.\S+$/.test(mail)){
+      input.classList.add("error"); msg.className = "contacto-msg mal"; msg.textContent = "Revisá el mail."; input.focus(); return;
+    }
+    input.classList.remove("error"); btn.disabled = true; btn.textContent = "Enviando…"; msg.textContent = "";
+    SHEET.enviar({tipo:"contacto", desde:"juego", email:mail, salvados:ultimoResultado, website:$("cWeb").value})
+      .then(function(){
+        $("contacto").classList.add("enviado");
+        msg.className = "contacto-msg ok"; msg.textContent = "¡Listo! Te escribimos en estos días.";
+      })
+      .catch(function(){
+        btn.disabled = false; btn.textContent = "Enviar";
+        msg.className = "contacto-msg mal"; msg.textContent = "No se pudo enviar. Probá de nuevo o escribinos por LinkedIn.";
+      });
+  });
   window.__juego = {estado:function(){ return S; }, SIT:SIT, EQUIPO:EQUIPO};
 })();
 </script>
