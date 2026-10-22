@@ -17,6 +17,7 @@ img { max-width: 100%; height: auto; }
 .b-nav a { text-decoration: none; padding: 9px 14px; font-size: 15px; font-weight: 500; color: var(--text-body); border-radius: var(--radius-sm); white-space: nowrap; }
 .b-nav a:hover { color: var(--text-strong); background: var(--bp-neutral-100); }
 .b-nav a[aria-current="page"] { color: var(--color-brand-active); font-weight: 700; }
+.b-nav a[href^="/juegos/"] { background: var(--color-brand-subtle); color: var(--color-brand-active); font-family: var(--font-display); font-weight: 700; border-radius: var(--radius-pill); margin-left: 6px; } /* b-nav-game */
 
 .b-btn { margin-left: auto; display: inline-flex; align-items: center; justify-content: center; padding: 11px 20px; border-radius: var(--radius-lg); background: var(--color-brand); color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 15px; text-decoration: none; box-shadow: var(--shadow-brand); white-space: nowrap; transition: filter .2s, transform .15s; }
 .b-btn:hover { filter: brightness(0.96); }
@@ -134,7 +135,7 @@ img { max-width: 100%; height: auto; }
   .b-card-big.has-img .b-card-img { flex: none; aspect-ratio: 1200 / 630; min-height: 0; }
 }
 @media (max-width: 900px) {
-  .b-nav a:not([aria-current]) { display: none; }
+  .b-nav a:not([aria-current]):not([href^="/juegos/"]) { display: none; }
   .b-nav { margin-left: auto; }
   .b-header .b-btn { margin-left: 0; }
 }
