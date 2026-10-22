@@ -13,6 +13,7 @@ window.BP = {
       { id: "reporting", label: "Reporting" },
       { id: "clientes", label: "Clientes" },
       { id: "blog", label: "Blog", href: "/blog/" },
+      { id: "juego", label: "Jugá", href: "/juegos/que-no-se-vaya/", highlight: true },
     ],
     candidate: "¿Buscás trabajo?",
     cta: "Hablemos",
@@ -229,6 +230,7 @@ window.BP = {
       { id: "reporting", label: "Reporting" },
       { id: "clientes", label: "Clients" },
       { id: "blog", label: "Blog", href: "/blog/" },
+      { id: "juego", label: "Play", href: "/juegos/que-no-se-vaya/", highlight: true },
     ],
     candidate: "Looking for a job?",
     cta: "Let's talk",
@@ -441,5 +443,6 @@ window.BP_CONTACT = {
   whatsappText: "?text=Hola,%20quisiera%20saber%20m%C3%A1s%20sobre%20ustedes",
   email: "hello@bp-4.com",
   linkedin: "https://www.linkedin.com/company/bp4/",
+  instagram: "https://www.instagram.com/bp4.it/",
   maps: "https://maps.app.goo.gl/Tkwnt6vTdSgQCxPr6",
 };

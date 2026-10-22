@@ -6,6 +6,7 @@ window.BP4M_DATA = {
     whatsapp: "https://wa.me/5491164812711?text=Hola,%20quisiera%20saber%20m%C3%A1s%20sobre%20ustedes",
     email: "hello@bp-4.com",
     linkedin: "https://www.linkedin.com/company/bp4/",
+    instagram: "https://www.instagram.com/bp4.it/",
     maps: "https://maps.app.goo.gl/Tkwnt6vTdSgQCxPr6",
     phone: "+54 9 11 6481-2711",
     address: "Chile 537, Buenos Aires, Argentina",
@@ -16,6 +17,7 @@ window.BP4M_DATA = {
     cta: "Hablemos",
     candidate: "¿Buscás trabajo?",
     nav: [
+      { id: "juego", label: "Jugá", href: "/juegos/que-no-se-vaya/", highlight: true },
       { id: "modelo", label: "El modelo" },
       { id: "people-care", label: "People Care" },
       { id: "reporting", label: "Reporting" },
@@ -174,6 +176,7 @@ window.BP4M_DATA = {
     cta: "Let's talk",
     candidate: "Looking for a job?",
     nav: [
+      { id: "juego", label: "Play", href: "/juegos/que-no-se-vaya/", highlight: true },
       { id: "modelo", label: "The model" },
       { id: "people-care", label: "People Care" },
       { id: "reporting", label: "Reporting" },

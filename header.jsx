@@ -52,10 +52,12 @@ function Header({ t, lang, setLang, onStart, goTo }) {
         <nav className="bp-desktop-nav" style={{ display: "flex", gap: 2, marginLeft: 6 }}>
           {t.nav.map((n) => (
             <button key={n.id} onClick={() => go(n)} className="bp-navlink" style={{
-              border: "none", background: "transparent", cursor: "pointer", padding: "9px 14px",
-              fontFamily: "var(--font-body)", fontSize: 15, fontWeight: 500, color: "var(--text-body)",
-              borderRadius: "var(--radius-sm)", whiteSpace: "nowrap",
-            }}>{n.label}</button>
+              border: "none", background: n.highlight ? "var(--color-brand-subtle)" : "transparent", cursor: "pointer", padding: "9px 14px",
+              fontFamily: n.highlight ? "var(--font-display)" : "var(--font-body)", fontSize: 15, fontWeight: n.highlight ? 700 : 500,
+              color: n.highlight ? "var(--color-brand-active)" : "var(--text-body)",
+              borderRadius: n.highlight ? "var(--radius-pill)" : "var(--radius-sm)", whiteSpace: "nowrap",
+              display: "inline-flex", alignItems: "center", gap: 6, marginLeft: n.highlight ? 6 : 0,
+            }}>{n.highlight && <HIcon name="gamepad-2" size={16} />}{n.label}</button>
           ))}
         </nav>
         <div className="bp-desktop-actions" style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 14 }}>
@@ -88,7 +90,7 @@ function Header({ t, lang, setLang, onStart, goTo }) {
             {t.nav.map((n) => (
               <button key={n.id} onClick={() => go(n)} style={{
                 border: "none", background: "transparent", cursor: "pointer", textAlign: "left", padding: "13px 8px",
-                fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 700, color: "var(--text-strong)",
+                fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 700, color: n.highlight ? "var(--color-brand-active)" : "var(--text-strong)",
                 borderBottom: "1px solid var(--border-subtle)",
               }}>{n.label}</button>
             ))}

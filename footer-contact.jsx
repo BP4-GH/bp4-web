@@ -112,6 +112,7 @@ function Contact({ t }) {
               <ContactChannel icon="message-circle" label="WhatsApp" value="+54 9 11 6481-2711" href={WA} />
               <ContactChannel icon="mail" label="Email" value={C.email} href={`mailto:${C.email}`} />
               <ContactChannel icon="linkedin" label="LinkedIn" value="linkedin.com/company/bp4" href={C.linkedin} />
+              <ContactChannel icon="instagram" label="Instagram" value="@bp4.it" href={C.instagram} />
               <ContactChannel icon="map-pin" label={t.lang === "en" ? "Office" : "Oficina"} value={t.footer.address} href={C.maps} />
             </div>
           </div>
@@ -136,6 +137,7 @@ function Footer({ t, goTo }) {
             <p style={{ fontFamily: "var(--font-body)", fontSize: 14, color: "rgba(255,255,255,0.55)", marginTop: 18, lineHeight: 1.6 }}>{t.footer.tagline}</p>
             <div style={{ display: "flex", gap: 10, marginTop: 22 }}>
               <a href={C.linkedin} target="_blank" rel="noreferrer" className="bp-press" style={{ width: 40, height: 40, borderRadius: "var(--radius-md)", background: "rgba(255,255,255,0.08)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}><FIcon name="linkedin" size={18} /></a>
+              <a href={C.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="bp-press" style={{ width: 40, height: 40, borderRadius: "var(--radius-md)", background: "rgba(255,255,255,0.08)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}><FIcon name="instagram" size={18} /></a>
               <a href={WA} target="_blank" rel="noreferrer" className="bp-press" style={{ width: 40, height: 40, borderRadius: "var(--radius-md)", background: "rgba(255,255,255,0.08)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}><FIcon name="message-circle" size={18} /></a>
               <a href={`mailto:${C.email}`} className="bp-press" style={{ width: 40, height: 40, borderRadius: "var(--radius-md)", background: "rgba(255,255,255,0.08)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}><FIcon name="mail" size={18} /></a>
             </div>
