@@ -78,12 +78,22 @@ function MobileApp({ lang, setLang }) {
 
   const contactFields = ((t.contact || {}).fields || []);
   const setVal = (k, v) => setVals((s) => ({ ...s, [k]: v }));
+  const [sending, setSending] = React.useState(false);
+  const [fail, setFail] = React.useState("");
   const submit = () => {
     const v = vals;
-    const subject = encodeURIComponent("Consulta desde la web BP4");
-    const body = encodeURIComponent("Nombre: " + (v.name || "") + "\nEmail: " + (v.email || "") + "\nNecesito: " + (v.need || ""));
-    window.location.href = "mailto:" + (C.email || "hello@bp-4.com") + "?subject=" + subject + "&body=" + body;
-    setSent(true);
+    const porMail = () => {
+      const subject = encodeURIComponent("Consulta desde la web BP4");
+      const body = encodeURIComponent("Nombre: " + (v.name || "") + "\nEmail: " + (v.email || "") + "\nNecesito: " + (v.need || ""));
+      window.location.href = "mailto:" + (C.email || "hello@bp-4.com") + "?subject=" + subject + "&body=" + body;
+    };
+    const S = window.BP4Sheet;
+    if (!S || !S.activo) { porMail(); setSent(true); return; }
+    if (!/^\S+@\S+\.\S+$/.test(String(v.email || "").trim())) { setFail(isEn ? "Please check your email." : "Revisá el mail."); return; }
+    setSending(true); setFail("");
+    S.enviar({ tipo: "contacto", desde: "web", nombre: v.name, email: v.email, empresa: v.company, mensaje: v.need, website: v.website })
+      .then(() => { setSending(false); setSent(true); })
+      .catch(() => { setSending(false); setFail(isEn ? "We couldn't send it. Try again or write to hello@bp-4.com." : "No se pudo enviar. Probá de nuevo o escribinos a hello@bp-4.com."); });
   };
 
   const logos = window.BP_CLIENT_LOGOS || [];
@@ -436,7 +446,9 @@ function MobileApp({ lang, setLang }) {
                     )}
                   </label>
                 ))}
-                <button onClick={submit} className={press} style={{ marginTop: 4, padding: 15, border: "none", borderRadius: "var(--radius-lg)", background: "var(--color-brand)", color: "#fff", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 15.5, cursor: "pointer", boxShadow: "var(--shadow-brand)" }}>{(t.contact || {}).submit}</button>
+                <input type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" value={vals.website || ""} onChange={(e) => setVal("website", e.target.value)} style={{ position: "absolute", left: -9999, width: 1, height: 1, opacity: 0 }} />
+                <button onClick={submit} disabled={sending} className={press} style={{ marginTop: 4, padding: 15, border: "none", borderRadius: "var(--radius-lg)", background: "var(--color-brand)", color: "#fff", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 15.5, cursor: sending ? "wait" : "pointer", opacity: sending ? 0.7 : 1, boxShadow: "var(--shadow-brand)" }}>{sending ? (isEn ? "Sending…" : "Enviando…") : (t.contact || {}).submit}</button>
+                {fail && <span role="alert" style={{ fontFamily: "var(--font-body)", fontSize: 13.5, fontWeight: 600, color: "var(--bp-error)", textAlign: "center" }}>{fail}</span>}
                 <span style={{ fontFamily: "var(--font-body)", fontSize: 12.5, color: "var(--text-muted)", textAlign: "center" }}>{(t.contact || {}).hint}</span>
               </div>
             )}

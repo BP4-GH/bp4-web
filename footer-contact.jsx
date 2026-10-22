@@ -35,6 +35,8 @@ function ContactForm({ t, compact = false }) {
   const [sent, setSent] = React.useState(false);
   const [vals, setVals] = React.useState({});
   const [errs, setErrs] = React.useState({});
+  const [sending, setSending] = React.useState(false);
+  const [fail, setFail] = React.useState(false);
   const set = (k, v) => { setVals((p) => ({ ...p, [k]: v })); setErrs((p) => ({ ...p, [k]: false })); };
   const submit = () => {
     const e = {};
@@ -42,12 +44,19 @@ function ContactForm({ t, compact = false }) {
     if (vals.email && !/^\S+@\S+\.\S+$/.test(vals.email)) e.email = true;
     setErrs(e);
     if (Object.keys(e).length === 0) {
-      const subject = encodeURIComponent("Consulta desde la web BP4");
-      const body = encodeURIComponent(
-        `Nombre: ${vals.name || ""}\nEmail: ${vals.email || ""}\nEmpresa: ${vals.company || ""}\nNecesito: ${vals.need || ""}`
-      );
-      window.location.href = `mailto:hello@bp-4.com?subject=${subject}&body=${body}`;
-      setSent(true);
+      const porMail = () => {
+        const subject = encodeURIComponent("Consulta desde la web BP4");
+        const body = encodeURIComponent(
+          `Nombre: ${vals.name || ""}\nEmail: ${vals.email || ""}\nEmpresa: ${vals.company || ""}\nNecesito: ${vals.need || ""}`
+        );
+        window.location.href = `mailto:hello@bp-4.com?subject=${subject}&body=${body}`;
+      };
+      const S = window.BP4Sheet;
+      if (!S || !S.activo) { porMail(); setSent(true); return; }
+      setSending(true); setFail(false);
+      S.enviar({ tipo: "contacto", desde: "web", nombre: vals.name, email: vals.email, empresa: vals.company, mensaje: vals.need, website: vals.website })
+        .then(() => { setSending(false); setSent(true); })
+        .catch(() => { setSending(false); setFail(true); });
     }
   };
   React.useEffect(() => { if (window.lucide) window.lucide.createIcons(); }, [sent]);
@@ -75,7 +84,9 @@ function ContactForm({ t, compact = false }) {
           )}
         </label>
       ))}
-      <button onClick={submit} className="bp-press" style={{ marginTop: 6, padding: "15px", border: "none", borderRadius: "var(--radius-lg)", background: "var(--color-brand)", color: "#fff", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 16, cursor: "pointer", boxShadow: "var(--shadow-brand)" }}>{t.contact.submit}</button>
+      <input type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" value={vals.website || ""} onChange={(e) => set("website", e.target.value)} style={{ position: "absolute", left: -9999, width: 1, height: 1, opacity: 0 }} />
+      <button onClick={submit} disabled={sending} className="bp-press" style={{ marginTop: 6, padding: "15px", border: "none", borderRadius: "var(--radius-lg)", background: "var(--color-brand)", color: "#fff", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 16, cursor: sending ? "wait" : "pointer", opacity: sending ? 0.7 : 1, boxShadow: "var(--shadow-brand)" }}>{sending ? (t.lang === "en" ? "Sending…" : "Enviando…") : t.contact.submit}</button>
+      {fail && <span role="alert" style={{ fontFamily: "var(--font-body)", fontSize: 14, fontWeight: 600, color: "var(--bp-error)", textAlign: "center" }}>{t.lang === "en" ? "We couldn't send it. Please try again or write to hello@bp-4.com." : "No se pudo enviar. Probá de nuevo o escribinos a hello@bp-4.com."}</span>}
       <span style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "var(--text-muted)", textAlign: "center" }}>{t.contact.hint}</span>
     </div>
   );
