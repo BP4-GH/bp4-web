@@ -42,6 +42,7 @@ DS = "/_ds/bp4-design-system-74aeafca-6a8d-44c7-afc9-dea3e27f2c16/styles.css"
 DEFAULT_IMAGE = "/assets/photos/hero-team.png"
 WHATSAPP = "https://wa.me/5491164812711?text=Hola,%20quisiera%20saber%20m%C3%A1s%20sobre%20ustedes"
 LINKEDIN = "https://www.linkedin.com/company/bp4/"
+INSTAGRAM = "https://www.instagram.com/bp4.it/"
 EMAIL = "hello@bp-4.com"
 
 # Páginas fuera del blog que también van al sitemap (juegos, etc.)
@@ -51,7 +52,8 @@ MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
          "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
 
 NAV = [("/#modelo", "El modelo"), ("/#people-care", "People Care"),
-       ("/#reporting", "Reporting"), ("/#clientes", "Clientes"), ("/blog/", "Blog")]
+       ("/#reporting", "Reporting"), ("/#clientes", "Clientes"), ("/blog/", "Blog"),
+       ("/juegos/que-no-se-vaya/", "Jugá")]
 
 
 def esc(s):
@@ -168,6 +170,7 @@ def footer():
     <p>Gestión integral de talento tecnológico.</p>
     <div class="b-footer-links">
       <a href="{LINKEDIN}" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a>
       <a href="mailto:{EMAIL}">{EMAIL}</a>
       <a href="/blog/feed.xml">RSS</a>
     </div>
