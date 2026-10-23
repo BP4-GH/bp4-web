@@ -57,7 +57,7 @@ function MobileApp({ lang, setLang }) {
     setMenuOpen(false);
     requestAnimationFrame(() => {
       const el = document.getElementById("s-" + id);
-      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 78, behavior: "smooth" });
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 66, behavior: "smooth" });
     });
   };
   const goContact = () => scrollTo("contacto");
@@ -120,7 +120,9 @@ function MobileApp({ lang, setLang }) {
       {/* ===== STICKY HEADER ===== */}
       <header style={{ position: "sticky", top: 0, zIndex: 30, background: "rgba(14,53,65,0.92)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", borderBottom: "1px solid rgba(255,255,255,0.08)", paddingTop: "max(10px, env(safe-area-inset-top))" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 18px" }}>
-          <img src={whiteLogo} alt="bp4" style={{ height: 28, width: "auto", display: "block" }} />
+          <a href="/" aria-label="bp4 — inicio" onClick={(e) => { e.preventDefault(); setMenuOpen(false); if (window.location.hash) window.history.replaceState(null, "", window.location.pathname); window.scrollTo({ top: 0, behavior: "smooth" }); }} style={{ display: "flex", flex: "none" }}>
+            <img src={whiteLogo} alt="bp4" style={{ height: 28, width: "auto", display: "block" }} />
+          </a>
           <div style={{ marginLeft: "auto", display: "inline-flex", background: "rgba(255,255,255,0.12)", borderRadius: "var(--radius-pill)", padding: 3 }}>
             <button onClick={() => changeLang("es")} className={press} style={langBtn(lang === "es")}>ES</button>
             <button onClick={() => changeLang("en")} className={press} style={langBtn(lang === "en")}>EN</button>
@@ -128,11 +130,6 @@ function MobileApp({ lang, setLang }) {
           <button onClick={() => setMenuOpen(true)} aria-label="Menu" className={press} style={{ flex: "none", width: 40, height: 40, borderRadius: "var(--radius-md)", border: "1px solid rgba(255,255,255,0.16)", background: "rgba(255,255,255,0.08)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
             <MIcon name="menu" size={20} />
           </button>
-        </div>
-        <div className="bp4m-scroll-x" style={{ display: "flex", gap: 8, overflowX: "auto", padding: "2px 18px 12px" }}>
-          {nav.map((n) => (
-            <button key={n.id} onClick={() => (n.href ? (window.location.href = n.href) : scrollTo(n.id))} className={press} style={{ flex: "none", border: n.highlight ? "1px solid var(--color-brand)" : "1px solid rgba(255,255,255,0.16)", background: n.highlight ? "var(--color-brand)" : "rgba(255,255,255,0.06)", color: n.highlight ? "#fff" : "rgba(255,255,255,0.88)", fontFamily: "var(--font-body)", fontWeight: 600, fontSize: 13, padding: "7px 14px", borderRadius: "var(--radius-pill)", cursor: "pointer", whiteSpace: "nowrap" }}>{n.label}</button>
-          ))}
         </div>
       </header>
 

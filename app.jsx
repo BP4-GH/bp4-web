@@ -45,7 +45,8 @@ function App() {
     if (!id) return;
     let tries = 0;
     const timer = setInterval(() => {
-      const el = document.getElementById(id);
+      // En mobile las secciones usan el prefijo "s-" (ej. s-contacto)
+      const el = document.getElementById(id) || document.getElementById("s-" + id);
       if (el || ++tries > 20) {
         clearInterval(timer);
         if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72 });

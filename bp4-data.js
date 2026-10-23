@@ -17,7 +17,6 @@ window.BP4M_DATA = {
     cta: "Hablemos",
     candidate: "¿Buscás trabajo?",
     nav: [
-      { id: "juego", label: "Jugá", href: "/juegos/que-no-se-vaya/", highlight: true },
       { id: "modelo", label: "El modelo" },
       { id: "people-care", label: "People Care" },
       { id: "reporting", label: "Reporting" },
@@ -26,6 +25,7 @@ window.BP4M_DATA = {
       { id: "clientes", label: "Clientes" },
       { id: "blog", label: "Blog", href: "/blog/" },
       { id: "contacto", label: "Contacto" },
+      { id: "juego", label: "Jugá", href: "/juegos/que-no-se-vaya/", highlight: true },
     ],
     hero: {
       eyebrow: "Gestión integral de talento · +13 años",
@@ -176,7 +176,6 @@ window.BP4M_DATA = {
     cta: "Let's talk",
     candidate: "Looking for a job?",
     nav: [
-      { id: "juego", label: "Play", href: "/juegos/que-no-se-vaya/", highlight: true },
       { id: "modelo", label: "The model" },
       { id: "people-care", label: "People Care" },
       { id: "reporting", label: "Reporting" },
@@ -185,6 +184,7 @@ window.BP4M_DATA = {
       { id: "clientes", label: "Clients" },
       { id: "blog", label: "Blog", href: "/blog/" },
       { id: "contacto", label: "Contact" },
+      { id: "juego", label: "Play", href: "/juegos/que-no-se-vaya/", highlight: true },
     ],
     hero: {
       eyebrow: "End-to-end talent management · 13+ years",
