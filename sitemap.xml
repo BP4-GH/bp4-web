@@ -15,7 +15,15 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://bp-4.com/juegos/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://bp-4.com/juegos/que-no-se-vaya/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://bp-4.com/juegos/llegar-a-la-fecha/</loc>
     <priority>0.6</priority>
   </url>
 </urlset>

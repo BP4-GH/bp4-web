@@ -25,7 +25,7 @@ window.BP4M_DATA = {
       { id: "clientes", label: "Clientes" },
       { id: "blog", label: "Blog", href: "/blog/" },
       { id: "contacto", label: "Contacto" },
-      { id: "juego", label: "Jugá", href: "/juegos/que-no-se-vaya/", highlight: true },
+      { id: "juego", label: "Jugá", href: "/juegos/", highlight: true },
     ],
     hero: {
       eyebrow: "Gestión integral de talento · +13 años",
@@ -184,7 +184,7 @@ window.BP4M_DATA = {
       { id: "clientes", label: "Clients" },
       { id: "blog", label: "Blog", href: "/blog/" },
       { id: "contacto", label: "Contact" },
-      { id: "juego", label: "Play", href: "/juegos/que-no-se-vaya/", highlight: true },
+      { id: "juego", label: "Play", href: "/juegos/", highlight: true },
     ],
     hero: {
       eyebrow: "End-to-end talent management · 13+ years",
