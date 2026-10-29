@@ -46,14 +46,14 @@ INSTAGRAM = "https://www.instagram.com/bp4.it/"
 EMAIL = "hello@bp-4.com"
 
 # Páginas fuera del blog que también van al sitemap (juegos, etc.)
-EXTRA_URLS = ["/juegos/que-no-se-vaya/"]
+EXTRA_URLS = ["/juegos/", "/juegos/que-no-se-vaya/", "/juegos/llegar-a-la-fecha/"]
 
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
          "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
 
 NAV = [("/#modelo", "El modelo"), ("/#people-care", "People Care"),
        ("/#reporting", "Reporting"), ("/#clientes", "Clientes"), ("/blog/", "Blog"),
-       ("/juegos/que-no-se-vaya/", "Jugá")]
+       ("/juegos/", "Jugá")]
 
 
 def esc(s):
