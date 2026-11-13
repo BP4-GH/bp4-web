@@ -57,7 +57,7 @@ function Header({ t, lang, setLang, onStart, goTo }) {
               color: n.highlight ? "var(--color-brand-active)" : "var(--text-body)",
               borderRadius: n.highlight ? "var(--radius-pill)" : "var(--radius-sm)", whiteSpace: "nowrap",
               display: "inline-flex", alignItems: "center", gap: 6, marginLeft: n.highlight ? 6 : 0,
-            }}>{n.highlight && <HIcon name="gamepad-2" size={16} />}{n.label}</button>
+            }}>{n.label}</button>
           ))}
         </nav>
         <div className="bp-desktop-actions" style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 14 }}>

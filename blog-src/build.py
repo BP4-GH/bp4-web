@@ -53,7 +53,7 @@ MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
 
 NAV = [("/#modelo", "El modelo"), ("/#people-care", "People Care"),
        ("/#reporting", "Reporting"), ("/#clientes", "Clientes"), ("/blog/", "Blog"),
-       ("/juegos/", "Jugá")]
+       ("/juegos/", "Simulaciones")]
 
 
 def esc(s):
@@ -137,9 +137,9 @@ def head(title, description, url, image, og_type="website", extra=""):
 """
 
 
-def header():
+def header(actual="/blog/"):
     cur = ' aria-current="page"'
-    links = "".join(f'<a href="{h}"{cur if h == "/blog/" else ""}>{esc(l)}</a>' for h, l in NAV)
+    links = "".join(f'<a href="{h}"{cur if h == actual else ""}>{esc(l)}</a>' for h, l in NAV)
     return f"""<header class="b-header">
   <div class="b-wrap b-header-row">
     <a href="/" class="b-logo" aria-label="BP4 — inicio"><img src="/assets/logos/bp4-logo-orange.png" alt="bp4" width="43" height="36" /></a>
@@ -307,6 +307,47 @@ def sitemap(posts):
             f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{body}\n</urlset>\n')
 
 
+# ---------- Página de simulaciones (/juegos/) ----------
+# Las simulaciones en sí no se generan acá: cada una es su propia carpeta en /juegos/.
+SIMULACIONES = [
+    {"titulo": "Que no se vaya", "url": "/juegos/que-no-se-vaya/", "imagen": "/juegos/img/que-no-se-vaya.png",
+     "texto": "Feedback, carga, ofertas de afuera, plan de carrera. Qué hace que alguien de tu equipo se quede o se vaya.",
+     "respalda": "People Care", "dura": "1 minuto"},
+    {"titulo": "Llegar a la fecha", "url": "/juegos/llegar-a-la-fecha/", "imagen": "/juegos/img/llegar-a-la-fecha.png",
+     "texto": "Cubrir a quien se va sin sobrecargar al equipo, con una fecha de entrega que no se mueve.",
+     "respalda": "Recruiting y Reporting", "dura": "1 minuto y medio"},
+]
+
+
+def page_simulaciones():
+    desc = ("Simulaciones cortas, basadas en situaciones que vemos con las personas que acompañamos: "
+            "por qué alguien se queda, por qué se va y qué cuesta cubrir su lugar.")
+    cards = "\n".join(f"""<a class="s-card" href="{c['url']}">
+  <div class="s-img"><img src="{esc(c['imagen'])}" alt="" loading="lazy" /></div>
+  <div class="s-body">
+    <h2>{esc(c['titulo'])}</h2>
+    <p>{esc(c['texto'])}</p>
+    <span class="s-chip">Respalda: {esc(c['respalda'])}</span>
+    <div class="s-pie"><span class="s-dura">{esc(c['dura'])}</span><span class="s-ver">Ver la simulación →</span></div>
+  </div>
+</a>""" for c in SIMULACIONES)
+    return (head("Simulaciones — BP4", desc, f"{SITE}/juegos/", DEFAULT_IMAGE) + header("/juegos/") + f"""<main>
+<section class="b-wrap b-intro s-intro">
+  <span class="b-eyebrow">Simulaciones BP4</span>
+  <h1>Lo que pasa dentro de un equipo, en un minuto</h1>
+  <p>{esc(desc)}</p>
+</section>
+<section class="b-wrap s-lista">
+{cards}
+</section>
+<section class="b-wrap s-ancla">
+  <p><b>En BP4 hacemos staff augmentation IT y acompañamos a cada persona para que sus skills sigan encajando con lo que la empresa necesita.</b>
+  El pulso real del equipo lo toman People Care y Reporting con seguimiento continuo; la simulación lo hace visible en un minuto y abre la conversación.</p>
+</section>
+</main>
+""" + footer())
+
+
 def main():
     include_drafts = "--drafts" in sys.argv
     posts = [parse(f) for f in sorted(SRC.glob("*.md"))]
@@ -332,6 +373,8 @@ def main():
         (d / "index.html").write_text(page_post(p, others), encoding="utf-8")
     (OUT / "feed.xml").write_text(feed(published), encoding="utf-8")
     (ROOT / "sitemap.xml").write_text(sitemap(published), encoding="utf-8")
+    (ROOT / "juegos").mkdir(exist_ok=True)
+    (ROOT / "juegos" / "index.html").write_text(page_simulaciones(), encoding="utf-8")
 
     print(f"OK — {len(published)} publicadas, {len(visible) - len(published)} borradores incluidos")
     for p in visible:
